@@ -26,30 +26,33 @@ export interface User extends Document {
 const UserSchema: Schema<User> = new Schema({
   username: {
     type: String,
-    required: [true, "Username is requried"],
+    required: [true, "Username is required"],
     trim: true,
     unique: true,
   },
   email: {
     type: String,
-    required: [true, "Email is requried"],
+    required: [true, "Email is required"],
     unique: true,
     match: [/.+\@.+\..+/, "Please use a valid email"],
   },
-  password: { type: String, required: [true, "Password is requried"] },
-  verifyCode: { type: String, required: [true, "Verify code is requried"] },
+  password: { type: String, required: [true, "Password is required"] },
+  verifyCode: { type: String, required: [true, "Verify code is required"] },
   verifyCodeExpiry: {
     type: Date,
-    required: [true, "Verify code expiry is requried"],
+    required: [true, "Verify code expiry is required"],
   },
   isVerified: { type: Boolean, default: false },
   isAcceptingMessage: { type: Boolean, default: true },
   messages: [MessageSchema],
 });
 
+// first condition check the already create a model in database
+// second  condition to create model in database
 const UserModel =
   (mongoose.models.User as mongoose.Model<User>) ||
   mongoose.model<User>("User", UserSchema);
+
 // const MessageModel =
 //   (mongoose.models.Message as mongoose.Model<Message>) ||
 //   mongoose.model("Message", MessageSchema);

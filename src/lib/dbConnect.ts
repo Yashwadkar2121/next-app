@@ -1,13 +1,15 @@
 import mongoose from "mongoose";
 
+// "?" is denoted is optional every time not return
 type ConnectionObject = {
   isConnected?: number;
 };
 
-const conneaction: ConnectionObject = {};
+const connection: ConnectionObject = {};
 
+// Void means data return in Promise -- > i do not care
 async function dbConnect(): Promise<void> {
-  if (conneaction.isConnected) {
+  if (connection.isConnected) {
     console.log("Already Database is Connected");
     return;
   }
@@ -15,7 +17,7 @@ async function dbConnect(): Promise<void> {
   try {
     const db = await mongoose.connect(process.env.MONGODB_URI || "", {});
 
-    conneaction.isConnected = db.connections[0].readyState;
+    connection.isConnected = db.connections[0].readyState;
 
     console.log("Db Connection Successfully ");
   } catch (error) {
